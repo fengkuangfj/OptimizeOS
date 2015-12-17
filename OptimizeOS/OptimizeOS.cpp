@@ -4,7 +4,7 @@
 #include "stdafx.h"
 
 BOOL
-	StopServices()
+	SetServices()
 {
 	BOOL		bRet = FALSE;
 
@@ -35,9 +35,32 @@ BOOL
 	return bRet;
 }
 
+BOOL
+	SetUac()
+{
+	BOOL bRet = FALSE;
+
+
+	__try
+	{
+		CUac::Set(UAC_LEVEL_4);
+
+		bRet = TRUE;
+	}
+	__finally
+	{
+		;
+	}
+
+	return bRet;
+}
+
 int _tmain(int argc, _TCHAR* argv[])
 {
-	StopServices();
+	SetServices();
+	SetUac();
+
+	_getch();
 
 	return 0;
 }
