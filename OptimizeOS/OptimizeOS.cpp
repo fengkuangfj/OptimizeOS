@@ -6,30 +6,32 @@
 BOOL
 	SetServices()
 {
-	BOOL		bRet = FALSE;
-
-	CService	Service;
+	BOOL bRet = FALSE;
 
 
 	__try
 	{
 		// Windows Search
-		Service.Stop(_T("WSearch"));
-		Service.Disable(_T("WSearch"));
+		CService::GetInstance()->Stop(_T("WSearch"));
+		CService::GetInstance()->Disable(_T("WSearch"));
 
 		// Windows Update
-		Service.Stop(_T("wuauserv"));
-		Service.Disable(_T("wuauserv"));
+		CService::GetInstance()->Stop(_T("wuauserv"));
+		CService::GetInstance()->Disable(_T("wuauserv"));
 
 		// Windows Firewall
-		Service.Stop(_T("MpsSvc"));
-		Service.Disable(_T("MpsSvc"));
+		CService::GetInstance()->Stop(_T("MpsSvc"));
+		CService::GetInstance()->Disable(_T("MpsSvc"));
+
+		// Windows Firewall/Internet Connection Sharing (ICS)
+		CService::GetInstance()->Stop(_T("SharedAccess"));
+		CService::GetInstance()->Disable(_T("SharedAccess"));
 
 		bRet = TRUE;
 	}
 	__finally
 	{
-		;
+		CService::ReleaseInstance();
 	}
 
 	return bRet;
