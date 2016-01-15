@@ -11,21 +11,21 @@ BOOL
 
 	__try
 	{
+		// Windows Firewall/Internet Connection Sharing (ICS)
+		CService::GetInstance()->Enable(_T("SharedAccess"));
+		CService::GetInstance()->Start(_T("SharedAccess"));
+
+		// Windows Firewall
+		CService::GetInstance()->Enable(_T("MpsSvc"));
+		CService::GetInstance()->Start(_T("MpsSvc"));
+
 		// Windows Search
 		CService::GetInstance()->Stop(_T("WSearch"));
 		CService::GetInstance()->Disable(_T("WSearch"));
 
 		// Windows Update
+		CService::GetInstance()->Enable(_T("wuauserv"));
 		CService::GetInstance()->Stop(_T("wuauserv"));
-		CService::GetInstance()->Disable(_T("wuauserv"));
-
-		// Windows Firewall
-		CService::GetInstance()->Stop(_T("MpsSvc"));
-		CService::GetInstance()->Disable(_T("MpsSvc"));
-
-		// Windows Firewall/Internet Connection Sharing (ICS)
-// 		CService::GetInstance()->Stop(_T("SharedAccess"));
-// 		CService::GetInstance()->Disable(_T("SharedAccess"));
 
 		bRet = TRUE;
 	}
