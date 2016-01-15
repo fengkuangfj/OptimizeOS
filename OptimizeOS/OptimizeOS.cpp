@@ -24,8 +24,8 @@ BOOL
 		CService::GetInstance()->Disable(_T("MpsSvc"));
 
 		// Windows Firewall/Internet Connection Sharing (ICS)
-		CService::GetInstance()->Stop(_T("SharedAccess"));
-		CService::GetInstance()->Disable(_T("SharedAccess"));
+// 		CService::GetInstance()->Stop(_T("SharedAccess"));
+// 		CService::GetInstance()->Disable(_T("SharedAccess"));
 
 		bRet = TRUE;
 	}
