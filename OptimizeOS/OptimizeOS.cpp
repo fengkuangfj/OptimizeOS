@@ -20,8 +20,20 @@ BOOL
 		CService::GetInstance()->Start(_T("MpsSvc"));
 
 		// Windows Search
-		CService::GetInstance()->Stop(_T("WSearch"));
-		CService::GetInstance()->Disable(_T("WSearch"));
+		CService::GetInstance()->Enable(_T("WSearch"));
+		CService::GetInstance()->Start(_T("WSearch"));
+
+		// Windows Time
+		CService::GetInstance()->Enable(_T("W32Time"));
+		CService::GetInstance()->Start(_T("W32Time"));
+
+		// Windows Event Log
+		CService::GetInstance()->Enable(_T("eventlog"));
+		CService::GetInstance()->Start(_T("eventlog"));
+
+		// System Event Notification
+		CService::GetInstance()->Enable(_T("SENS"));
+		CService::GetInstance()->Start(_T("SENS"));
 
 		// Windows Update
 		CService::GetInstance()->Enable(_T("wuauserv"));

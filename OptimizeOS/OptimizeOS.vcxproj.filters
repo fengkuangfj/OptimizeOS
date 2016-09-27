@@ -39,13 +39,13 @@
     <ClInclude Include="..\..\Public\Uac\Uac.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Public\ProcessType\ProcessType.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Public\ProcessPath\ProcessPath.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\Public\ModulePath\ModulePath.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Public\ProcessControl\ProcessControl.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Public\Public.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
@@ -68,13 +68,13 @@
     <ClCompile Include="..\..\Public\Uac\Uac.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Public\ProcessType\ProcessType.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Public\ProcessPath\ProcessPath.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\Public\ModulePath\ModulePath.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Public\ProcessControl\ProcessControl.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Public\Public.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
