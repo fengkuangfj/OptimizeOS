@@ -3,8 +3,10 @@
 
 #include "stdafx.h"
 
+#define MOD_MAIN _T("Ö÷Ä£¿é")
+
 BOOL
-	SetServices()
+SetServices()
 {
 	BOOL bRet = FALSE;
 
@@ -50,7 +52,7 @@ BOOL
 }
 
 BOOL
-	SetUac()
+SetUac()
 {
 	BOOL bRet = FALSE;
 
@@ -69,12 +71,106 @@ BOOL
 	return bRet;
 }
 
+BOOL
+SetRegedit()
+{
+	BOOL	bRet = FALSE;
+
+	LONG	lResult = 0;
+	HKEY	hKey = NULL;
+	DWORD	dwData = 0;
+
+
+	__try
+	{
+		lResult = RegOpenKeyEx(
+			HKEY_LOCAL_MACHINE,
+			_T("SYSTEM\\CurrentControlSet\\Control\\Terminal Server"),
+			0,
+			KEY_ALL_ACCESS,
+			&hKey
+		);
+		if (ERROR_SUCCESS != lResult)
+		{
+			printfEx(MOD_MAIN, PRINTF_LEVEL_ERROR, "RegOpenKeyEx failed. (%d)", lResult);
+			__leave;
+		}
+
+		dwData = 0;
+		lResult = RegSetValueEx(
+			hKey,
+			_T("fDenyTSConnections"),
+			0,
+			REG_DWORD,
+			(BYTE *)&dwData,
+			sizeof(DWORD)
+		);
+		if (ERROR_SUCCESS != lResult)
+		{
+			printfEx(MOD_MAIN, PRINTF_LEVEL_ERROR, "RegSetValueEx failed. (%d)", lResult);
+			__leave;
+		}
+	}
+	__finally
+	{
+		if (hKey)
+		{
+			RegFlushKey(hKey);
+
+			RegCloseKey(hKey);
+			hKey = NULL;
+		}
+	}
+
+	__try
+	{
+		lResult = RegOpenKeyEx(
+			HKEY_CURRENT_USER,
+			_T("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced"),
+			0,
+			KEY_ALL_ACCESS,
+			&hKey
+		);
+		if (ERROR_SUCCESS != lResult)
+		{
+			printfEx(MOD_MAIN, PRINTF_LEVEL_ERROR, "RegOpenKeyEx failed. (%d)", lResult);
+			__leave;
+		}
+
+		dwData = 0;
+		lResult = RegSetValueEx(
+			hKey,
+			_T("HideFileExt"),
+			0,
+			REG_DWORD,
+			(BYTE *)&dwData,
+			sizeof(DWORD)
+		);
+		if (ERROR_SUCCESS != lResult)
+		{
+			printfEx(MOD_MAIN, PRINTF_LEVEL_ERROR, "RegSetValueEx failed. (%d)", lResult);
+			__leave;
+		}
+	}
+	__finally
+	{
+		if (hKey)
+		{
+			RegFlushKey(hKey);
+
+			RegCloseKey(hKey);
+			hKey = NULL;
+		}
+	}
+
+	return bRet;
+}
+
 int _tmain(int argc, _TCHAR* argv[])
 {
 	SetServices();
 	SetUac();
-
-	_getch();
+	SetRegedit();
 
 	return 0;
 }
