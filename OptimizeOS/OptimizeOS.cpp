@@ -41,6 +41,14 @@ SetServices()
 		CService::GetInstance()->Enable(_T("wuauserv"));
 		CService::GetInstance()->Stop(_T("wuauserv"));
 
+		// Windows Error Reporting Service
+		CService::GetInstance()->Enable(_T("WerSvc"));
+		CService::GetInstance()->Start(_T("WerSvc"));
+
+		// Windows Event Collector
+		CService::GetInstance()->Enable(_T("Wecsvc"));
+		CService::GetInstance()->Start(_T("Wecsvc"));
+
 		bRet = TRUE;
 	}
 	__finally
